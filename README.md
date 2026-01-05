@@ -23,6 +23,16 @@ A partir de esto, se deberá completar y extender la aplicación.
 
 ---
 
+## Uso de la API
+
+Hemos desarrollado una API de mensajería básica para que puedas probar la aplicación. Podés acceder a ella a través del siguiente link:
+
+👉 https://github.com/toremsoftware/messaging-api-for-eval
+
+Dentro del archivo README.md vas a encontrar las instrucciones para levantarla de forma local. Ten en cuenta que esta API tiene como único objetivo facilitar el desarrollo de la aplicación; no es necesario ni esperado que realices cambios sobre ella, ya que no forma parte de la evaluación.
+
+---
+
 ## Alcance del desafío
 
 ### 1. Autenticación y Splash Screen
@@ -120,8 +130,12 @@ Los siguientes puntos no son obligatorios, pero serán considerados un plus:
   - Posibles mejoras con más tiempo disponible
   - Problemas detectados (por ejemplo, el performance leak)
 
+Para entregar la evaluación, deberás comprimir la solución en un archivo `.zip` (no `.rar`) y subirla en el siguiente formulario: https://forms.gle/g3j5m5C8ZEV42yxU8.
+
 ---
 
 ## Notas finales
 
 No existe una única forma correcta de resolver el desafío. Se valoran especialmente las soluciones simples, claras y bien razonadas, por sobre implementaciones innecesariamente complejas.
+
+Desde el equipo de Torem te deseamos mucha suerte! 🍀
