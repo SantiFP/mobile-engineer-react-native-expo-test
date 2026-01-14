@@ -57,7 +57,7 @@ Estado del proyecto
 
       - Se corrigió un error en la carga de mensajes que no estaba contemplado en la evaluación.La request original con Axios presentaba fallos al enviar el token y recuperar los mensajes, por lo que se reemplazó por `fetch` nativo, garantizando que la lista se renderice correctamente al abrir el chat.
 
-         **Nota:** Esta corrección implicó modificar la implementación de la request definida en  
+         Nota: Esta corrección implicó modificar la implementación de la request definida en  
          `src/api/baseRepositories/api/http/axios/axios-http-service.ts`,  
          asegurando el correcto envío del token y la obtención de los mensajes.
 
