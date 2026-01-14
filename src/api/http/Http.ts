@@ -1,6 +1,6 @@
-import HttpResponse from './HttpResponse';
 import { AbortClass } from '../classes/AbortClass';
 import { HttpProgressEvent } from './HttpProgressEvent';
+import HttpResponse from './HttpResponse';
 
 export interface RequestData<T = any> {
   endpoint: string;
@@ -27,7 +27,7 @@ export interface HttpHeader {
 }
 
 export enum ContentType {
-  JSON = 'application/json;charset=UTF-8',
+  JSON = 'application/json',
 
   FORMDATA = 'multipart/form-data'
 }

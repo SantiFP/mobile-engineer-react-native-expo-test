@@ -26,3 +26,4 @@ function Regular() {
 }
 
 export default React.memo(Regular);
+

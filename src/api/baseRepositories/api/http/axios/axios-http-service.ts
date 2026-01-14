@@ -38,7 +38,9 @@ export class HttpService {
     data.body = data.body ?? {};
 
     try {
+
       const response = await requestAsync(data);
+
 
       return response.body;
     } catch (e: any) {
@@ -69,16 +71,38 @@ export class HttpService {
   }
 
   private static async executeGetAsync(
-    data: RequestData
-  ): Promise<HttpResponse> {
-    const axiosResponse = await apiClient.get(data.endpoint, {
-      headers: data.headers!,
-      params: data.params!,
+  data: RequestData
+): Promise<HttpResponse> {
+  try {
+    // Construimos query params
+    const query = data.params
+      ? "?" + new URLSearchParams(data.params as Record<string, string>).toString()
+      : "";
+
+    const url = data.endpoint + query;
+
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: { ...data.headers },
       signal: data.abort?.getSignal(),
     });
 
-    return parseResponse(axiosResponse);
+    const text = await response.text(); 
+    let body;
+    try {
+      body = JSON.parse(text); 
+    } catch {
+      body = text; 
+    }
+
+    return new HttpResponse(response.status, body, {}); 
+  } catch (err: any) {
+    console.error("ERROR Fetch GET:", err);
+    throw err;
   }
+}
+
 
   private static async executePutAsync(
     data: RequestData
@@ -90,6 +114,7 @@ export class HttpService {
       onUploadProgress: (axiosProgressEvent) =>
         parseProgressEvent(axiosProgressEvent, data.handleUploadProgress),
     });
+
 
     return parseResponse(axiosResponse);
   }

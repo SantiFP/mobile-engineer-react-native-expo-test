@@ -18,6 +18,10 @@ export interface Message {
   imageSize?: number;
 
   replyTo?: string;
+
+  uri?: string;
+  
+  name?: string;
 }
 
 export interface SendMessageResponse {

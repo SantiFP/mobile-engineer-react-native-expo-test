@@ -1,141 +1,148 @@
-# Evaluación Técnica – Mobile Engineer (React Native / Expo)
+## Mobile Engineer Evaluation – React Native / Expo
 
-## Objetivo
+## Nombre del candidato: Santiago Fuentes
 
-El objetivo de esta evaluación es comprender el enfoque de la persona candidata al momento de diseñar, estructurar y desarrollar una aplicación mobile real, así como su capacidad para resolver problemas habituales de producto, arquitectura y performance.
+# Instalación y ejecución del proyecto
 
-No se espera una solución perfecta ni completamente finalizada, sino una implementación **funcional, clara y bien fundamentada**, con foco en buenas prácticas de desarrollo.
+1- Clonar el repositorio
 
----
+git clone <URL_DEL_REPOSITORIO>
+cd <NOMBRE_DEL_PROYECTO>
 
-## Contexto
+2- Instalar dependencias
 
-Se provee una aplicación base desarrollada con **Expo + React Native**, que incluye:
+npm install
 
-- Store global de **Redux** ya configurado
-- Arquitectura básica de acceso a API
-- Pantalla de **Login parcialmente implementada**
-- Pantalla de **Chat base implementada**
-- Ejemplo funcional de **socket listener para mensajes de texto**
-- Un **problema de performance introducido de manera intencional** (performance leak)
+3- Ejecutar
 
-A partir de esto, se deberá completar y extender la aplicación.
+npx expo start
 
----
+4- Configuración de URLs
 
-## Uso de la API
+En `src/api/config.ts` se definen `apiUrl` y `socketUrl` según la plataforma.
 
-Hemos desarrollado una API de mensajería básica para que puedas probar la aplicación. Podés acceder a ella a través del siguiente link:
+- **iOS simulator:** `localhost` funciona directamente.
+- **Expo Go en dispositivo físico o emulador Android:** reemplazar la URL por la dirección IP del equipo donde se ejecuta el backend, para que la aplicación pueda conectarse correctamente.
 
-👉 https://github.com/toremsoftware/messaging-api-for-eval
+Esta configuración asegura que la app se conecte correctamente tanto a la API como a Socket.IO.
 
-Dentro del archivo README.md vas a encontrar las instrucciones para levantarla de forma local. Ten en cuenta que esta API tiene como único objetivo facilitar el desarrollo de la aplicación; no es necesario ni esperado que realices cambios sobre ella, ya que no forma parte de la evaluación.
+5- Credenciales de prueba
 
----
+Para acceder a la aplicación, utilizar las siguientes credenciales de prueba:
 
-## Alcance del desafío
+- **Usuario:** testuser
+- **Contraseña:** testpass123
 
-### 1. Autenticación y Splash Screen
+Estas credenciales permiten iniciar sesión y probar las funcionalidades principales de la aplicación sin necesidad de crear un usuario nuevo.
 
-- Implementar una **Splash Screen** inicial
-- Completar la implementación del **Login**, utilizando **React Query** para la comunicación con la API
-- Al autenticarse correctamente:
-  - Persistir el token en el dispositivo (mecanismo de almacenamiento a elección)
-- Al iniciar la aplicación:
-  - Si existe un token válido almacenado, se deberá ingresar directamente a la aplicación
-  - En caso contrario, se deberá mostrar la pantalla de Login
+## Descripción
 
----
+Solución de la evaluación técnica para Mobile Developer en Torem. La aplicación ahora integra autenticación de usuarios, chat con soporte para imágenes, navegación fluida, persistencia de sesión, paginación eficiente y virtualización de listas, además se resolvió el problema de performance intencional.
 
-### 2. Navegación
+Estado del proyecto
 
-- Agregar en el Header del chat un botón de Logout e implementar el **ruteo de pantallas** entre:
-  - Login
-  - Chats
-- Se puede utilizar:
-  - Una librería de navegación
-  - O una solución nativa/custom
+- Todas las funcionalidades requeridas del punto 1 al 5 de la evaluación fueron implementadas y funcionan correctamente.
 
-La elección queda a criterio de la persona candidata.
+- Código organizado y modular, con uso adecuado de hooks y manejo de estado mediante Redux y React Query.
 
----
+- Resuelto el problema de performance intencional, mejorando la eficiencia en la carga y renderizado de mensajes.
 
-### 3. Mensajería
+- Aplicadas consideraciones de performance y escalabilidad en el chat y el listado de mensajes.
 
-#### Envío de mensajes
+- Integración de NativeWind en varias pantallas y componentes.
 
-- Implementar envío de **mensajes de imagen** (layout en Message/Layout/Image.tsx):
-  - Utilizando **expo-camera**
-  - Agregar un botón de adjuntar a la izquierda del input y al presionarlo se deberá abrir un **Action Sheet** con las siguientes opciones:
-    - Cámara (habilitada)
-    - Fototeca (deshabilitada)
-    - Archivo (deshabilitada)
-    - Audio (deshabilitada)
+- Integración de un sistema de notificaciones y feedback visual para errores de comunicación con la API: iniciar sesión, obtener mensajes y enviar imágenes.
 
-> Las opciones deshabilitadas deben ser visibles, pero no funcionales.
+  Puntos adicionales:
 
-#### Recepción de mensajes
+      - Se corrigió un error en la carga de mensajes que no estaba contemplado en la evaluación.La request original con Axios presentaba fallos al enviar el token y recuperar los mensajes, por lo que se reemplazó por `fetch` nativo, garantizando que la lista se renderice correctamente al abrir el chat.
 
-- Implementar la **recepción de mensajes vía socket**: Si todo lo anterior se realizó correctamente, esto debería funcionar automáticamente con el socket listener de nuevo mensaje ya implementado.
+          > **Nota:** Esta corrección implicó modificar la implementación de la request definida en  
+          > `src/api/baseRepositories/api/http/axios/axios-http-service.ts`,  
+          > asegurando el correcto envío del token y la obtención de los mensajes.
 
----
+      - Se solucionó el flasheo de la imagen de fondo en el componente Body, ajustando dinámicamente su ancho y alto según el tamaño del dispositivo para garantizar un render estable y uniforme.
 
-### 4. Listado de mensajes
+## Archivos y hooks creados para la prueba técnica
 
-- Implementar **paginación de mensajes**
-- Utilizar **virtualización** para el renderizado del listado
-- Tener en cuenta consideraciones de performance y escalabilidad del chat
+Durante la prueba se agregaron varios hooks y servicios dentro de la carpeta `src` que no formaban parte del proyecto original, con el fin de implementar la funcionalidad completa de chat, autenticación y manejo de errores.
 
----
+### Hooks (`src/hooks`)
 
-### 5. Performance
+- `useAttachmentMenu.ts` → Maneja opciones de adjuntos y estado de envío.
+- `useAuth.ts` → Gestiona autenticación y persistencia de sesión.
+- `useChatPagination.ts` → Lógica de paginación de mensajes en el chat (solución al punto 4 de la evaluación).
+- `useErrorMessage.ts` → Hook global para mostrar mensajes de error.
+- `usePickImage.ts` → Selector de imágenes desde galería o cámara.
+- `useRenderLogger.ts` → Auxiliar para debuggear renders de componentes.
 
-- La aplicación contiene **un problema de performance introducido de manera intencional**
-- Se espera que:
-  - El problema sea identificado
-  - Se explique brevemente su causa
-  - Se proponga y/o implemente una solución (total o parcial)
+### Componentes nuevos
 
----
+- `Error.tsx` (`src/components`) → Componente para mostrar mensajes de error globales.  
+  Se utiliza junto a un Provider que envuelve la app, permitiendo disparar errores desde cualquier componente de forma centralizada.
 
-## Adicionales (no excluyentes)
+### Servicios (`src/services`)
 
-Los siguientes puntos no son obligatorios, pero serán considerados un plus:
+Se agregó la carpeta `services` con funciones para centralizar la comunicación con la API y manejar datos de forma organizada:
 
-- Propuestas de mejora de **arquitectura** y/o **performance** general de la aplicación
-- Integración de **NativeWind**:
-  - Instalación
-  - Uso en al menos algunas pantallas o componentes
-- Implementación de un sistema de **notificaciones o feedback visual** para errores en la comunicación con la API
+- `postRequest.ts` → Wrapper general para POST requests, usado en login y envío de mensajes.
+- `AuthService.ts` → Funciones para autenticación, manejo de tokens y persistencia de sesión.
+- `SendImageService.ts` → Funciones para enviar imágenes al backend, manejando formatos y errores.
 
----
+Estos hooks y servicios fueron creados específicamente para la prueba técnica y no existían en el proyecto original, contribuyendo a mantener el código más modular y claro.
 
-## Criterios de evaluación
+## Detalle del problema de performance del punto 5:
 
-- Claridad y calidad del código
-- Organización del proyecto
-- Manejo de estado y side effects
-- Uso adecuado de hooks
-- Manejo de errores
-- Decisiones técnicas y fundamentos
-- Identificación y resolución de problemas de performance
+- Problema: Cada render del componente Body recalculaba toda la lista de mensajes usando Object.values y sort,
+  lo que provocaba ralentización de la aplicación cuando la cantidad de mensajes era elevada.
 
----
+- Causa: El ordenamiento se realizaba directamente dentro del render, y la lista de mensajes se actualizaba constantemente.
 
-## Entrega
+- Solución aplicada:
+  1. Se utilizó useMemo para memoizar la transformación y ordenamiento de los mensajes, de modo que solo se recalculen cuando cambian los datos.
+  2. Se empleó useCallback para memoizar la función renderItem y evitar su recreación en cada render.
+  3. (Extra) En un proyecto real, se podría delegar el ordenamiento a un selector memoizado de Redux o al reducer para mayor eficiencia.
 
-- Repositorio con el código final
-- README actualizado (puede ser este mismo) que incluya:
-  - Decisiones técnicas relevantes
-  - Posibles mejoras con más tiempo disponible
-  - Problemas detectados (por ejemplo, el performance leak)
+- Resultado: El componente Body ahora mantiene un rendimiento estable y consistente, incluso con grandes volúmenes de mensajes.
 
-Para entregar la evaluación, deberás comprimir la solución en un archivo `.zip` (no `.rar`) y subirla en el siguiente formulario: https://forms.gle/g3j5m5C8ZEV42yxU8.
+## Propuestas de mejora de arquitectura y/o performance general
 
----
+- Organización de carpetas / arquitectura: Actualmente hay componentes, pantallas y layouts dentro de la carpeta features, lo que no refleja claramente su alcance o responsabilidad. Se podría reorganizar separando pantallas, layouts y componentes reutilizables de cada feature, mejorando la mantenibilidad, escalabilidad y claridad del proyecto.
+
+- En Message.tsx cada mensaje se suscribe individualmente al store mediante un selector por ID. En listas grandes, esto puede generar múltiples evaluaciones cuando cambia el estado global del chat. Una alternativa sería pasar el mensaje ya resuelto desde la FlatList o
+usar selectores memoizados.
+
+- No es necesario un Provider para el componente Message, ya que su estado no se comparte con otros. Se recomienda manejar el id y el estado localmente dentro de Message para simplificar la arquitectura y mejorar la mantenibilidad.
+
+- En Regular.tsx cada mensaje utiliza múltiples selectores individuales para obtener propiedades del estado global. En listas extensas, esto incrementa la cantidad de suscripciones y evaluaciones al store. Se sugiere agrupar las propiedades en un único selector memoizado o pasar el mensaje resuelto desde el contenedor.
+
+- En Footer.tsx el valor del input se toma directamente del store de Redux. Esto hace que el componente se vuelva a renderizar cada vez que cambia algo del estado global, aunque no afecte al input. Se podría mejorar manejando el valor dentro del componente o usando un selector que solo devuelva lo que realmente necesita.
+
+- Actualmente en Header.tsx se define handleLogout dentro del componente y se usan estilos dinámicos en ThemedView. Para mejorar la performance, se podría memoizar handleLogout con useCallback y extraer los estilos fijos a StyleSheet.create para reducir cálculos en cada render.
+
+- En Chat.tsx actualmente se utiliza useLayoutEffect para obtener los mensajes al montar el componente, lo que retrasa el primer render. Se podría usar useEffect para cargar los datos sin bloquear la UI.
+
+- Login.tsx
+  - React.memo: Actualmente se usa `React.memo`, pero al no recibir props ni depender de re-renders externos, no aporta beneficios reales y podría eliminarse.
+  - Estado de inputs: Los campos `username` y `password` se manejan con `useState`. Esto funciona, pero si se agregan validaciones o más campos, se podría usar un hook de formulario o `useReducer` para centralizar el estado y reducir renders innecesarios.
+  - Estilos: Los estilos aplicados a `ImageBackground` y `KeyboardAvoidingView` son fijos pero definidos en línea, lo que provoca recalculaciones en cada render. Extraerlos a `StyleSheet.create` puede mejorar la performance.
+
+- Se movió la creación de QueryClient fuera del componente ReduxRootLayoutWrapper para evitar recrearlo en cada render. Esto mantiene el cache de React Query estable y mejora la eficiencia de la aplicación.
+
+- Actualmente la app sigue el tema del sistema mediante useColorScheme(), pero no permite que el usuario cambie manualmente entre modo claro y oscuro. Se podría implementar un toggle o botón en la UI que actualice el estado del tema, guardándolo en Redux o Context, y pasando ese valor al ThemeProvider. Esto mejoraría la experiencia de usuario y daría mayor control sobre la apariencia de la app.
 
 ## Notas finales
 
-No existe una única forma correcta de resolver el desafío. Se valoran especialmente las soluciones simples, claras y bien razonadas, por sobre implementaciones innecesariamente complejas.
+La aplicación cumple con los requisitos de la evaluación técnica y muestra un rendimiento estable. Con más tiempo, se podrían implementar mejoras adicionales para incrementar la calidad y la mantenibilidad del proyecto:
 
-Desde el equipo de Torem te deseamos mucha suerte! 🍀
+Optimización de performance: Aunque se resolvió el problema intencional y se aplicaron memoizaciones en componentes clave, se podría mejorar aún más el manejo de listas grandes y los selectores de Redux para optimizar renders innecesarios.
+
+Arquitectura y organización: La estructura de carpetas y componentes podría refinarse, separando de manera más clara pantallas, layouts y features, lo que facilitaría la incorporación de nuevas funcionalidades y su mantenimiento.
+
+Gestión de estilos: Aunque NativeWind ya se utiliza para mantener consistencia visual, se podría estandarizar aún más el uso de variables de diseño y mejorar la modularidad de los estilos.
+
+Robustez y testing: Se podrían agregar pruebas unitarias e integración en componentes críticos, así como tests de manejo de errores en la comunicación con la API y Socket.IO.
+
+Mejoras de UX: Si bien se contemplan indicadores de carga y feedback básico ante errores, podrían incorporarse validaciones adicionales y una mayor claridad en algunos estados de la interfaz para cubrir escenarios límite y mejorar la experiencia general del usuario.
+
+En resumen, la solución presentada es funcional, organizada y optimizada dentro del alcance de la evaluación, con espacio para mejoras de mayor alcance si se contara con más tiempo.

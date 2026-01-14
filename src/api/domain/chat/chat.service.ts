@@ -15,6 +15,7 @@ export default class ChatService {
   ): Promise<Paginated<Message>> {
     const chats = await this.chatRepository.getEvents<Message>(limit, offset);
 
+
     return chats;
   }
 
