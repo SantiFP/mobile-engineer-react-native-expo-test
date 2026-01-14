@@ -99,9 +99,9 @@ Estos hooks y servicios fueron creados específicamente para la prueba técnica 
 - Causa: El ordenamiento se realizaba directamente dentro del render, y la lista de mensajes se actualizaba constantemente.
 
 - Solución aplicada:
-  1. Se utilizó useMemo para memoizar la transformación y ordenamiento de los mensajes, de modo que solo se recalculen cuando cambian los datos.
-  2. Se empleó useCallback para memoizar la función renderItem y evitar su recreación en cada render.
-  3. (Extra) En un proyecto real, se podría delegar el ordenamiento a un selector memoizado de Redux o al reducer para mayor eficiencia.
+  - Se utilizó useMemo para memoizar la transformación y ordenamiento de los mensajes, de modo que solo se recalculen cuando cambian los datos.
+  - Se empleó useCallback para memoizar la función renderItem y evitar su recreación en cada render.
+  - (Extra) En un proyecto real, se podría delegar el ordenamiento a un selector memoizado de Redux o al reducer para mayor eficiencia.
 
 - Resultado: El componente Body ahora mantiene un rendimiento estable y consistente, incluso con grandes volúmenes de mensajes.
 
