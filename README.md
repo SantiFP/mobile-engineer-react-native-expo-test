@@ -6,8 +6,8 @@
 
 1- Clonar el repositorio
 
-git clone <URL_DEL_REPOSITORIO>
-cd <NOMBRE_DEL_PROYECTO>
+git clone https://github.com/SantiFP/mobile-engineer-react-native-expo-test.git
+cd mobile-engineer-react-native-expo-test
 
 2- Instalar dependencias
 
@@ -57,9 +57,9 @@ Estado del proyecto
 
       - Se corrigió un error en la carga de mensajes que no estaba contemplado en la evaluación.La request original con Axios presentaba fallos al enviar el token y recuperar los mensajes, por lo que se reemplazó por `fetch` nativo, garantizando que la lista se renderice correctamente al abrir el chat.
 
-          > **Nota:** Esta corrección implicó modificar la implementación de la request definida en  
-          > `src/api/baseRepositories/api/http/axios/axios-http-service.ts`,  
-          > asegurando el correcto envío del token y la obtención de los mensajes.
+         **Nota:** Esta corrección implicó modificar la implementación de la request definida en  
+         `src/api/baseRepositories/api/http/axios/axios-http-service.ts`,  
+         asegurando el correcto envío del token y la obtención de los mensajes.
 
       - Se solucionó el flasheo de la imagen de fondo en el componente Body, ajustando dinámicamente su ancho y alto según el tamaño del dispositivo para garantizar un render estable y uniforme.
 
