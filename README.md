@@ -55,7 +55,7 @@ Estado del proyecto
 
 Puntos adicionales:
 
-  - Se corrigió un error en la carga de mensajes que no estaba contemplado en la evaluación.La request original con Axios presentaba fallos al enviar el token y recuperar los mensajes, por lo que se reemplazó por fetch nativo, garantizando que la lista se renderice correctamente al abrir el chat.
+  - Se corrigió un error en la carga de mensajes que no estaba contemplado en la evaluación. La request original con Axios presentaba fallos al enviar el token y recuperar los mensajes, por lo que se reemplazó por fetch nativo, garantizando que la lista se renderice correctamente al abrir el chat.
 
     Nota: Esta corrección implicó modificar la implementación de la request definida en  
     'src/api/baseRepositories/api/http/axios/axios-http-service.ts',  
@@ -86,8 +86,8 @@ Durante la prueba se agregaron varios hooks y servicios dentro de la carpeta `sr
 Se agregó la carpeta `services` con funciones para centralizar la comunicación con la API y manejar datos de forma organizada:
 
 - `postRequest.ts` → Wrapper general para POST requests, usado en login y envío de mensajes.
-- `AuthService.ts` → Funciones para autenticación, manejo de tokens y persistencia de sesión.
-- `SendImageService.ts` → Funciones para enviar imágenes al backend, manejando formatos y errores.
+- `authService.ts` → Funciones para autenticación, manejo de tokens y persistencia de sesión.
+- `sendImageService.ts` → Funciones para enviar imágenes al backend, manejando formatos y errores.
 
 Estos hooks y servicios fueron creados específicamente para la prueba técnica y no existían en el proyecto original, contribuyendo a mantener el código más modular y claro.
 
@@ -109,8 +109,7 @@ Estos hooks y servicios fueron creados específicamente para la prueba técnica 
 
 - Organización de carpetas / arquitectura: Actualmente hay componentes, pantallas y layouts dentro de la carpeta features, lo que no refleja claramente su alcance o responsabilidad. Se podría reorganizar separando pantallas, layouts y componentes reutilizables de cada feature, mejorando la mantenibilidad, escalabilidad y claridad del proyecto.
 
-- En Message.tsx cada mensaje se suscribe individualmente al store mediante un selector por ID. En listas grandes, esto puede generar múltiples evaluaciones cuando cambia el estado global del chat. Una alternativa sería pasar el mensaje ya resuelto desde la FlatList o
-usar selectores memoizados.
+- En Message.tsx cada mensaje se suscribe individualmente al store mediante un selector por ID. En listas grandes, esto puede generar múltiples evaluaciones cuando cambia el estado global del chat. Una alternativa sería pasar el mensaje ya resuelto desde la FlatList o usar selectores memoizados.
 
 - No es necesario un Provider para el componente Message, ya que su estado no se comparte con otros. Se recomienda manejar el id y el estado localmente dentro de Message para simplificar la arquitectura y mejorar la mantenibilidad.
 
@@ -143,6 +142,6 @@ Gestión de estilos: Aunque NativeWind ya se utiliza para mantener consistencia 
 
 Robustez y testing: Se podrían agregar pruebas unitarias e integración en componentes críticos, así como tests de manejo de errores en la comunicación con la API y Socket.IO.
 
-Mejoras de UX: Si bien se contemplan indicadores de carga y feedback básico ante errores, podrían incorporarse validaciones adicionales y una mayor claridad en algunos estados de la interfaz para cubrir escenarios límite y mejorar la experiencia general del usuario.
+Mejoras de UX y funcionalidad del chat: Actualmente el flujo principal está implementado, pero el chat podría completarse incorporando el envío de mensajes de texto, la eliminación de mensajes, estados de carga más claros, validaciones de input y un manejo más robusto de errores. También podrían añadirse mejoras como confirmaciones visuales, estados vacíos y una mejor gestión de escenarios límite para mejorar la experiencia del usuario.
 
 En resumen, la solución presentada es funcional, organizada y optimizada dentro del alcance de la evaluación, con espacio para mejoras de mayor alcance si se contara con más tiempo.

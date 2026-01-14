@@ -56,7 +56,6 @@ function SocketProvider({ children }: SocketProviderProps) {
     };
   }, [token, handleNewMessage]);
 
-  // Renderiza los children envueltos en el proveedor de socket
   return <>{children}</>;
 }
 

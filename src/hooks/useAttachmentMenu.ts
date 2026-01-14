@@ -32,7 +32,7 @@ export function useAttachmentMenu() {
 
             setIsSending(true); // Indica que se está enviando la imagen
             const response = await sendImageToServer(imageMessage, token!);
-            // Contiene los metadatos generados por el backend (id, url, timestamps)
+            // response contiene los metadatos generados por el backend (id, url, timestamps)
           } catch (err) {
             // Mostramos error si falla el envío
             showError(

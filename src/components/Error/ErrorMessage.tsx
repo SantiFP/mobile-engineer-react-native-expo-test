@@ -1,12 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Animated, Text, TouchableOpacity } from "react-native";
-
-interface ErrorMessageProps {
-  message: string;
-  visible: boolean;
-  onClose: () => void;
-  duration?: number;
-}
+import type { ErrorMessageProps } from "../../../types/types";
 
 const ErrorMessage = ({
   message,

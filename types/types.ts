@@ -26,6 +26,11 @@ export interface MessageContextType {
   id: string;
 }
 
+export interface MessageProps {
+  id: string;
+}
+
+
 export interface MessageProviderProps {
   id: string;          
   children: ReactNode; 
@@ -39,6 +44,12 @@ export interface ErrorContextType {
   showError: (message: string) => void;
 }
 
+export interface ErrorMessageProps {
+  message: string;
+  visible: boolean;
+  onClose: () => void;
+  duration?: number;
+}
 
 export interface ErrorProviderProps {
   children: ReactNode;

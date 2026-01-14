@@ -1,7 +1,6 @@
 import { createContext, useContext } from "react";
 import type { MessageContextType, MessageProviderProps } from "../../../../../types/types";
 
-
 // Contexto para compartir el ID del mensaje con componentes hijos
 const MessageContext = createContext<MessageContextType | null>(null);
 

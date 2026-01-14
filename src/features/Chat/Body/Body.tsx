@@ -7,7 +7,10 @@ import {
   View,
 } from "react-native";
 import { useChatPagination } from "../../../hooks/useChatPagination";
-import { getChatEvents, getChatPagination } from "../../../redux/chat/chat.selector";
+import {
+  getChatEvents,
+  getChatPagination,
+} from "../../../redux/chat/chat.selector";
 import { useAppSelector } from "../../../redux/hooks";
 import Message from "./Message/Message";
 
@@ -18,11 +21,13 @@ function Body() {
   const pagination = useAppSelector(getChatPagination);
 
   /**
-   * Problema de performance:
-   * Antes, cada render recalculaba toda la lista de mensajes con Object.values + sort,
-   * y con muchos mensajes el chat se volvía lento.
-   * Solución: memoizamos la lista con useMemo para que solo se recalculen cuando cambian los mensajes.
-   * En proyectos más grandes se podría optimizar aún más usando un selector memoizado en Redux.
+   * Problema de performance (punto 5 de la evaluación):
+   * En cada render se recalculaba la lista completa de mensajes usando Object.values + sort,
+   * lo que con muchos mensajes degradaba el rendimiento del chat.
+   *
+   * Solución:
+   * Se memoiza la lista con useMemo para que solo se recalculen cuando cambian los mensajes.
+   ** En proyectos más grandes se podría optimizar aún más usando un selector memoizado en Redux.
    */
   const messages = useMemo(() => {
     if (!events) return [];

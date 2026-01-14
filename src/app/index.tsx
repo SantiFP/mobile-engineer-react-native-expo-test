@@ -9,7 +9,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function HomeScreen() {
   const { loading, isAuthenticated } = useAuth(); // Hook de autenticación
-  const [appReady, setAppReady] = useState(false); // Controla cuando la app está lista
+  const [appReady, setAppReady] = useState(false); 
 
   // Oculta la splash screen cuando la app termina de cargar
   useEffect(() => {

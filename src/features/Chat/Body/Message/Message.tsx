@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import { MessageProps } from "../../../../../types/types";
 import * as MessageView from "../../../../components/MessageView/MessageView";
 import { getChatEventById } from "../../../../redux/chat/chat.selector";
 import { useAppSelector } from "../../../../redux/hooks";
 import ImageMessage from "./Layout/Image";
 import Regular from "./Layout/Regular";
 import { MessageProvider } from "./Provider";
-import { MessageProps } from "./types";
 
 function Message(props: MessageProps) {
   const { id } = props;

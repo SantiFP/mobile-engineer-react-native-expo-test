@@ -45,17 +45,14 @@ function ReduxRootLayoutWrapper() {
   }, [dispatch]);
 
   return (
-    // Proveedores globales de la app
     <QueryClientProvider client={queryClient}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <SocketProvider>
           <ActionSheetProvider>
             <GestureHandlerRootView style={{ flex: 1 }}>
               <Stack>
-                {/* Pantalla principal de la app */}
                 <Stack.Screen name="index" options={{ headerShown: false }} />
               </Stack>
-              {/* StatusBar fija estilo light */}
               <StatusBar style="light" />
             </GestureHandlerRootView>
           </ActionSheetProvider>
